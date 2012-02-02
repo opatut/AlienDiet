@@ -3,7 +3,8 @@ require("word")
 
 Item = class("Item")
 
-function Item:__init(image, word)
+function Item:__init(image, word, speed)
+    self.speed = speed
     self.word = Word(word, "small")
     self.image = image
     self.img = resources.images[self.image]
@@ -13,7 +14,7 @@ function Item:__init(image, word)
 end
 
 function Item:typeLetter(letter)
-    self.word:typeLetter(letter)
+    return self.word:typeLetter(letter)
 end
 
 function Item:draw()
@@ -34,5 +35,5 @@ function Item:draw()
 end
 
 function Item:update(dt)
-    self.y = self.y + dt * 30
+    self.y = self.y + dt * self.speed
 end

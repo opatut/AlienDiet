@@ -4,24 +4,26 @@ require("gamestate")
 require("item")
 require("zombie")
 require("resources")
+require("settings")
 
 MainState = class("MainState", GameState)
 
 function MainState:__init()
     -- prepare variables
-    self.items = {}
-    self.zombies = {}
-
     self.score = 0
     self.lives = 3
     self.time = 0
     self.nextItem = 0
+    self.difficulty = 1 -- 1 = normal, 2 = hacker, 3 = insane
+
+    self:reset()
 end
 
 function MainState:createItem()
     -- select a random image and random word
     keys = {"sandwich"}
-    table.insert(self.items, Item(keys[math.random(1, #keys)], resources.words[math.random(1, #resources.words)]))
+    local s = {30, 40, 50}
+    table.insert(self.items, Item(keys[math.random(1, #keys)], resources.words[math.random(1, #resources.words)], s[self.difficulty] + math.random(-100, 100) * 0.05))
 end
 
 function MainState:createZombie(shift)
@@ -31,10 +33,13 @@ end
 
 function MainState:update(dt)
     self.time = self.time + dt
+    settings:inc("minutes", dt / 60.0)
+
     self.nextItem = self.nextItem - dt
     if self.nextItem < 0 then
         self:createItem()
-        self.nextItem = math.pow(0.99, math.floor(self.time)) * 4
+        local c = {5,3.5,2}
+        self.nextItem = math.pow(0.993, math.floor(self.time)) * c[self.difficulty]
     end
 
     for key,item in ipairs(self.items) do
@@ -44,6 +49,7 @@ function MainState:update(dt)
     for key,item in ipairs(self.items) do
         if item.word.wordRest == "" then
             table.remove(self.items, key)
+            settings:inc("completed")
         end
 
         if item.y >= 530 then
@@ -57,16 +63,22 @@ function MainState:update(dt)
     end
 
     if self.time >= 314.1 then
-        -- happy birthday! you won.
-        print("You are great")
+        settings:inc("played")
+        stack:pop()
+        -- TODO
     end
 
     if self.lives < 0 then
-        print("You lost")
+        -- TODO
+        stack:pop()
     end
 end
 
 function MainState:draw()
+    -- background
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.draw(resources.images.background, 0, 0)
+
     for key,zombie in ipairs(self.zombies) do
         zombie:draw()
     end
@@ -95,7 +107,12 @@ function MainState:draw()
 end
 
 function MainState:start()
-    love.graphics.setBackgroundColor(100, 100, 100)
+    settings:inc("played")
+end
+
+function MainState:reset()
+    self.items = {}
+    self.zombies = {}
 
     -- create some zombies
     self:createZombie(20)
@@ -108,10 +125,14 @@ end
 
 function MainState:keypressed(k)
     if k == "escape" then
-        stack:pop()
+        stack:push(pause)
     end
 
+    hit = false
     for key,item in ipairs(self.items) do
-        item:typeLetter(k)
+        if item:typeLetter(k) then hit = true end
     end
+
+    if not hit then settings:inc("missed") end
+    settings:inc("pressed")
 end

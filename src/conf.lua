@@ -1,7 +1,7 @@
 function love.conf(t)
-    t.title = "Don't feed the zombies"
+    t.title = "Alien on a diet"
     t.author = "opatut"
-    t.identity = "tilt"
+    t.identity = "aliendiet"
     t.version = "0.8.0" -- Löve version
     t.console = false
     t.release = false

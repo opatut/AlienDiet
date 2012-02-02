@@ -5,12 +5,22 @@
 --   Basic English Word List: http://www.langmaker.com/wordlist/basiclex.htm
 --   Fonts: AEnigma Fonts (http://www.dafont.com/%C3%86nigma.d188)
 
+require("about")
+require("difficulty")
 require("gamestack")
+require("pause")
 require("mainstate")
 require("mainmenu")
+require("settings")
+require("stats")
+require("intro")
 require("resources")
 
 resources = Resources("data/")
+settings = Settings()
+settings:load()
+
+save_timer = 0
 
 function love.load()
     math.randomseed(os.time())
@@ -22,36 +32,55 @@ function love.load()
     end
 
     -- load images
+    resources:addImage("logo", "logo.png")
     resources:addImage("sandwich", "sandwich.png")
     resources:addImage("zombie", "zombie.png")
     resources:addImage("heart", "heart.png")
     resources:addImage("background", "background.png")
+    resources:addImage("keyboard", "keyboard.png")
 
     -- load fonts
-    resources:addFont("giant", "acknowtt.ttf", 60)
     resources:addFont("large", "acknowtt.ttf", 40)
+    resources:addFont("medium", "visitor1.ttf", 30)
     resources:addFont("small", "visitor1.ttf", 20)
+    resources:addFont("mini", "visitor1.ttf", 15)
+    resources:addFont("tiny", "visitor1.ttf", 10)
 
     resources:load()
 
     -- start game
+    about = About()
+    difficulty = Difficulty()
+    pause = Pause()
     main = MainState()
     menu = MainMenu()
+    stats = Stats()
+    intro = Intro()
     stack = GameStack()
-    stack:push(menu)
+    stack:push(intro)
 end
 
 function love.update(dt)
     stack:update(dt)
+
+    save_timer = save_timer - dt
+    if save_timer < 0 then
+        save_timer = 10
+        settings:save()
+    end
 end
 
 function love.draw()
-    love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(resources.images.background, 0, 0)
     stack:draw()
+    love.graphics.setFont(resources.fonts.tiny)
+    love.graphics.print("FPS: " .. love.timer.getFPS(), 5, 5)
 end
 
 function love.keypressed(k)
     stack:keypressed(k)
 end
 
+function love.quit()
+    -- save the stats
+    settings:save()
+end

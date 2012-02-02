@@ -34,6 +34,11 @@ function Word:typeLetter(letter)
         self.wordBegin = self.wordBegin .. self.wordRest:sub(1,1)
         self.wordRest = self.wordRest:sub(2)
 
+        while self.wordRest:sub(1,1) == " " do
+            self.wordBegin = self.wordBegin .. " "
+            self.wordRest = self.wordRest:sub(2)
+        end
+
         if #self.wordRest == 0 and self.callback then
             self.callback()
             if self.autoreset then

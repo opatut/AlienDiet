@@ -1,50 +1,36 @@
 require("helper")
+require("word")
 
 Item = class("Item")
 
 function Item:__init(image, word)
+    self.word = Word(word, "small")
     self.image = image
-    self.word = word
-    self.wordRest = word
-    self.wordBegin = ""
-    local i = resources.images[self.image]
-    local w = i:getWidth()
+    self.img = resources.images[self.image]
+    local w = self.img:getWidth()
     self.x = math.random(w / 2, 400 - w / 2)
-    self.y = -i:getHeight() / 2
+    self.y = -self.img:getHeight() / 2
 end
 
 function Item:typeLetter(letter)
-    if #self.wordRest == 0 then
-        return
-    end
-
-    if letter:lower() == self.wordRest:sub(1,1):lower() then
-        self.wordRest = self.wordRest:sub(2)
-        self.wordBegin = self.wordBegin .. letter
-        return true
-    end
-    return false
+    self.word:typeLetter(letter)
 end
 
 function Item:draw()
-    local i = resources.images[self.image]
     local font = resources.fonts["small"]
+    local h = self.img:getHeight()
+    local w = self.img:getWidth()
     love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.draw(i, self.x - i:getWidth() / 2, self.y - i:getHeight() / 2)
-
-    local w1 = font:getWidth(self.wordBegin)
-    local w2 = font:getWidth(self.wordRest)
+    love.graphics.draw(self.img, self.x - w / 2, self.y - h / 2)
 
     -- keep the text inside the window
-    local tx = self.x - (w1 + w2) / 2
-    if tx < 0 then tx = 0 end
-    if tx + w1 + w2 > 400 then tx = 400 - w1 - w2 end
+    local ww = self.word:getWidth()
+    local tx = self.x
+    if tx < ww / 2 then tx = ww / 2 end
+    if tx > 400 - ww / 2 then tx = 400 - ww / 2 end
 
-    love.graphics.setFont(font)
-    love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.print(self.wordBegin, tx , self.y - i:getHeight() / 2 - 20)
-    love.graphics.setColor(255, 255, 255, 128)
-    love.graphics.print(self.wordRest, tx + w1, self.y - i:getHeight() / 2 - 20)
+    -- draw the text
+    self.word:draw(tx, self.y - h / 2 - 15)
 end
 
 function Item:update(dt)

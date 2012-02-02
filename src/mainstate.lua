@@ -42,7 +42,7 @@ function MainState:update(dt)
     end
 
     for key,item in ipairs(self.items) do
-        if item.wordRest == "" then
+        if item.word.wordRest == "" then
             table.remove(self.items, key)
         end
 
@@ -107,6 +107,10 @@ function MainState:stop()
 end
 
 function MainState:keypressed(k)
+    if k == "escape" then
+        stack:pop()
+    end
+
     for key,item in ipairs(self.items) do
         item:typeLetter(k)
     end

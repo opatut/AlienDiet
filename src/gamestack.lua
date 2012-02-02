@@ -38,3 +38,7 @@ end
 function GameStack:draw()
     if self:current() then self:current():draw() end
 end
+
+function GameStack:keypressed(k)
+    if self:current() then self:current():keypressed(k) end
+end

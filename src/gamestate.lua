@@ -10,3 +10,4 @@ function GameState:update(dt)end
 function GameState:draw()end
 function GameState:start()end
 function GameState:stop()end
+function GameState:keypressed(k)end

@@ -7,6 +7,7 @@
 
 require("gamestack")
 require("mainstate")
+require("mainmenu")
 require("resources")
 
 resources = Resources("data/")
@@ -24,8 +25,10 @@ function love.load()
     resources:addImage("sandwich", "sandwich.png")
     resources:addImage("zombie", "zombie.png")
     resources:addImage("heart", "heart.png")
+    resources:addImage("background", "background.png")
 
     -- load fonts
+    resources:addFont("giant", "acknowtt.ttf", 60)
     resources:addFont("large", "acknowtt.ttf", 40)
     resources:addFont("small", "visitor1.ttf", 20)
 
@@ -33,8 +36,9 @@ function love.load()
 
     -- start game
     main = MainState()
+    menu = MainMenu()
     stack = GameStack()
-    stack:push(main)
+    stack:push(menu)
 end
 
 function love.update(dt)
@@ -42,14 +46,12 @@ function love.update(dt)
 end
 
 function love.draw()
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.draw(resources.images.background, 0, 0)
     stack:draw()
 end
 
 function love.keypressed(k)
-    if k == "escape" then
-        love.event.push("q");
-    end
-
-    main:keypressed(k)
+    stack:keypressed(k)
 end
 

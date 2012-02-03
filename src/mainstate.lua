@@ -47,14 +47,17 @@ function MainState:update(dt)
     end
 
     for key,item in ipairs(self.items) do
-        if item.word.wordRest == "" then
+        if not item:alive() then
             table.remove(self.items, key)
             settings:inc("completed")
         end
 
         if item.y >= 530 then
-            self.lives = self.lives - 1
-            table.remove(self.items, key)
+            if item.fadeTime == 1 then
+                self.lives = self.lives - 1
+            end
+            item.word.wordRest = ""
+            item.word.wordBegin = item.word.word
         end
     end
 

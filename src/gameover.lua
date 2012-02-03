@@ -7,7 +7,7 @@ require("genericmenu")
 GameOver = class("GameOver", GameState)
 
 function GameOver:__init()
-    self.menu = GenericMenu({"Try again", "Flee her"}, function(n,w)
+    self.menu = GenericMenu({"Try again", "Flee"}, function(n,w)
             stack:pop()
             if n == 1 then
                 stack:push(difficulty)

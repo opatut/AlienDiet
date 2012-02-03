@@ -50,14 +50,15 @@ function Word:typeLetter(letter)
     return false
 end
 
-function Word:draw(x, y)
+function Word:draw(x, y, alpha)
     local y = self.y + (y or 0) - self.font:getHeight() / 2
     local x = self.x + (x or 0) - self:getWidth() / 2
+    alpha = alpha or 255
 
     love.graphics.setFont(self.font)
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(255, 255, 255, alpha)
     love.graphics.print(self.wordBegin, x , y)
-    love.graphics.setColor(255, 255, 255, 128)
+    love.graphics.setColor(255, 255, 255, alpha / 2)
     love.graphics.print(self.wordRest, x + self:getWidthLeft(), y)
 end
 

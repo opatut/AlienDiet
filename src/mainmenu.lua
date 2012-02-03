@@ -57,4 +57,10 @@ end
 
 function MainMenu:start()
     self.info = math.random(1,5)
+
+    local s = resources.music.normal
+    if love.audio.getNumSources() == 0 then
+        s:setLooping(true)
+        s:play()
+    end
 end

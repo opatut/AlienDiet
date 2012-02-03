@@ -16,7 +16,7 @@ end
 
 function MainState:createItem()
     -- select a random image and random word
-    keys = {"sandwich", "pizza"}
+    keys = {"sandwich", "pizza", "burger", "hotdog"}
     if self.time > 314.1 then table.insert(keys, "pie_small") end
     local s = {30, 40, 50}
     table.insert(self.items, Item(keys[math.random(1, #keys)], resources.words[math.random(1, #resources.words)], s[self.difficulty] + math.random(-100, 100) * 0.05))

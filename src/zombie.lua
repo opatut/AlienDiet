@@ -8,7 +8,7 @@ function Zombie:__init(x, shift)
     self.shift = shift
     self.dx = 0
     self.flipped = false
-    self.img = resources.images.zombie
+    self.img = resources.images.alien
 
     w = self.img:getWidth()
     h = self.img:getHeight()

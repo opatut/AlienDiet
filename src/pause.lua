@@ -7,7 +7,7 @@ require("genericmenu")
 Pause = class("Pause", GameState)
 
 function Pause:__init()
-    self.menu = GenericMenu({"Continue", "Back to Menu"}, function(n,w)
+    self.menu = GenericMenu({"Continue", "Main Menu"}, function(n,w)
             if n == 1 then
                 stack:pop()
             elseif n == 2 then

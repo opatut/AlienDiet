@@ -10,18 +10,14 @@ MainState = class("MainState", GameState)
 
 function MainState:__init()
     -- prepare variables
-    self.score = 0
-    self.lives = 3
-    self.time = 0
-    self.nextItem = 0
     self.difficulty = 1 -- 1 = normal, 2 = hacker, 3 = insane
-
     self:reset()
 end
 
 function MainState:createItem()
     -- select a random image and random word
-    keys = {"sandwich"}
+    keys = {"sandwich", "pizza"}
+    if self.time > 314.1 then table.insert(keys, "pie_small") end
     local s = {30, 40, 50}
     table.insert(self.items, Item(keys[math.random(1, #keys)], resources.words[math.random(1, #resources.words)], s[self.difficulty] + math.random(-100, 100) * 0.05))
 end
@@ -35,11 +31,15 @@ function MainState:update(dt)
     self.time = self.time + dt
     settings:inc("minutes", dt / 60.0)
 
+    if self.time > settings:get("maxtime", 0) then
+        settings:set("maxtime", self.time)
+    end
+
     self.nextItem = self.nextItem - dt
     if self.nextItem < 0 then
         self:createItem()
         local c = {5,3.5,2}
-        self.nextItem = math.pow(0.993, math.floor(self.time)) * c[self.difficulty]
+        self.nextItem = math.pow(0.997, math.floor(self.time)) * c[self.difficulty]
     end
 
     for key,item in ipairs(self.items) do
@@ -62,15 +62,15 @@ function MainState:update(dt)
         zombie:update(self.items, dt)
     end
 
-    if self.time >= 314.1 then
-        settings:inc("played")
-        stack:pop()
-        -- TODO
+    if self.time >= 314.1 and not self.pietime_done then
+        self.pietime_done = true
+        settings:inc("pies")
+        stack:push(pietime)
     end
 
-    if self.lives < 0 then
-        -- TODO
+    if self.lives <= 0 then
         stack:pop()
+        stack:push(gameover)
     end
 end
 
@@ -108,11 +108,25 @@ end
 
 function MainState:start()
     settings:inc("played")
+
+    local m = {"normal", "hacker", "insane"}
+    local s = resources.music[m[self.difficulty]]
+    if s:isStopped() then
+        love.audio.stop()
+    end
+    s:setLooping(true)
+    s:play()
 end
 
 function MainState:reset()
     self.items = {}
     self.zombies = {}
+
+    self.score = 0
+    self.lives = 3
+    self.time = 0
+    self.nextItem = 0
+    self.pietime_done = false
 
     -- create some zombies
     self:createZombie(20)

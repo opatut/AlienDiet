@@ -15,6 +15,8 @@ function Stats:__init()
                 settings:set("completed", 0)
                 settings:set("played", 0)
                 settings:set("pies", 0)
+                settings:set("maxtime", 0)
+                settings:save()
             else
                 stack:pop()
             end
@@ -32,6 +34,7 @@ function Stats:draw()
     table.insert(l, {string.format("%.1f", settings:get("minutes", 0)), "Minutes played"})
     table.insert(l, {settings:get("completed", 0), "Food items preserved"})
     table.insert(l, {settings:get("played", 0), "Times played"})
+    table.insert(l, {string.format("%.1f", settings:get("maxtime", 0)), "seconds record"})
     table.insert(l, {"", ""})
     table.insert(l, {settings:get("pies", 0), "Pies eaten"})
 
@@ -40,10 +43,10 @@ function Stats:draw()
     love.graphics.setFont(resources.fonts.small)
     for n,x in pairs(l) do
         love.graphics.setColor(255, 255, 255, 255)
-        love.graphics.print(x[1], z - resources.fonts.small:getWidth(x[1]) - b / 2, 140 + 30 * (n-1))
+        love.graphics.print(x[1], z - resources.fonts.small:getWidth(x[1]) - b / 2, 130 + 30 * (n-1))
 
         love.graphics.setColor(255, 255, 255, 128)
-        love.graphics.print(x[2], z + b / 2, 140 + 30 * (n-1))
+        love.graphics.print(x[2], z + b / 2, 130 + 30 * (n-1))
     end
 
     self.menu:draw(200, 510)

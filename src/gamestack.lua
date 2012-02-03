@@ -26,6 +26,7 @@ function GameStack:push(state)
 end
 
 function GameStack:pop()
+    if not self:current() then return end
     self:current():stop()
     table.remove(self.states, #self.states)
     if self:current() then self:current():start() end

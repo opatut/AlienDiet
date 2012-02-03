@@ -8,6 +8,8 @@
 require("about")
 require("difficulty")
 require("gamestack")
+require("gameover")
+require("pietime")
 require("pause")
 require("mainstate")
 require("mainmenu")
@@ -34,10 +36,14 @@ function love.load()
     -- load images
     resources:addImage("logo", "logo.png")
     resources:addImage("sandwich", "sandwich.png")
-    resources:addImage("zombie", "zombie.png")
+    resources:addImage("pizza", "pizza.png")
+    resources:addImage("pie_small", "pie_small.png")
+    resources:addImage("alien", "alien.png")
     resources:addImage("heart", "heart.png")
     resources:addImage("background", "background.png")
     resources:addImage("keyboard", "keyboard.png")
+    resources:addImage("game_over", "game_over.png")
+    resources:addImage("pie", "pie.png")
 
     -- load fonts
     resources:addFont("large", "acknowtt.ttf", 40)
@@ -46,12 +52,20 @@ function love.load()
     resources:addFont("mini", "visitor1.ttf", 15)
     resources:addFont("tiny", "visitor1.ttf", 10)
 
+    -- load music
+    resources:addMusic("normal", "discovery.mp3")
+    resources:addMusic("hacker", "murdertaxi.mp3")
+    resources:addMusic("insane", "work-it-out.mp3")
+    resources:addMusic("fanfare", "fanfare.mp3")
+
     resources:load()
 
     -- start game
     about = About()
     difficulty = Difficulty()
     pause = Pause()
+    pietime = PieTime()
+    gameover = GameOver()
     main = MainState()
     menu = MainMenu()
     stats = Stats()

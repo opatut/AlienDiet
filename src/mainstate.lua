@@ -140,14 +140,14 @@ end
 function MainState:stop()
 end
 
-function MainState:keypressed(k)
+function MainState:keypressed(k, u)
     if k == "escape" then
         stack:push(pause)
     end
 
     hit = false
     for key,item in ipairs(self.items) do
-        if item:typeLetter(k) then hit = true end
+        if item:keypressed(k, u) then hit = true end
     end
 
     if not hit then settings:inc("missed") end

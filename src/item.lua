@@ -14,8 +14,8 @@ function Item:__init(image, word, speed)
     self.y = -self.img:getHeight() / 2
 end
 
-function Item:typeLetter(letter)
-    return self.word:typeLetter(letter)
+function Item:keypressed(k, u)
+    return self.word:keypressed(k, u)
 end
 
 function Item:draw()

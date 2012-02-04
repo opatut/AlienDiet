@@ -29,7 +29,14 @@ function love.load()
 
     -- load word list
     resources.words = {}
-    for line in io.lines("data/words.txt") do
+
+    ok, lines = pcall(love.filesystem.lines, "data/words.txt")
+    if not ok then
+        print("Could not read words file.")
+        exit()
+    end
+
+    for line in lines do
         table.insert(resources.words, line)
     end
 
@@ -92,8 +99,8 @@ function love.draw()
     love.graphics.print("FPS: " .. love.timer.getFPS(), 5, 5)
 end
 
-function love.keypressed(k)
-    stack:keypressed(k)
+function love.keypressed(k, u)
+    stack:keypressed(k, u)
 end
 
 function love.quit()

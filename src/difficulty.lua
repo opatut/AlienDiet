@@ -33,6 +33,6 @@ function Difficulty:draw()
     self.menu:draw(200, 270)
 end
 
-function Difficulty:keypressed(k)
-    self.menu:keypressed(k)
+function Difficulty:keypressed(k, u)
+    self.menu:keypressed(k, u)
 end

@@ -40,6 +40,6 @@ function GameStack:draw()
     if self:current() then self:current():draw() end
 end
 
-function GameStack:keypressed(k)
-    if self:current() then self:current():keypressed(k) end
+function GameStack:keypressed(k, u)
+    if self:current() then self:current():keypressed(k, u) end
 end

@@ -51,8 +51,8 @@ function MainMenu:draw()
     love.graphics.print(s[self.info], 200 - resources.fonts.tiny:getWidth(s[self.info]) / 2, 570)
 end
 
-function MainMenu:keypressed(k)
-    self.menu:keypressed(k)
+function MainMenu:keypressed(k, u)
+    self.menu:keypressed(k, u)
 end
 
 function MainMenu:start()

@@ -25,7 +25,8 @@ function Word:getWidth()
     return self:getWidthLeft() + self:getWidthRight()
 end
 
-function Word:typeLetter(letter)
+function Word:keypressed(k, u)
+    local letter = string.char(u)
     if not self.wordRest or self.wordRest == "" then
         return
     end

@@ -46,6 +46,6 @@ function About:draw()
     self.menu:draw(200, 550)
 end
 
-function About:keypressed(k)
-    self.menu:keypressed(k)
+function About:keypressed(k, u)
+    self.menu:keypressed(k, u)
 end

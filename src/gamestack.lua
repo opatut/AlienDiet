@@ -17,9 +17,6 @@ function GameStack:current()
 end
 
 function GameStack:push(state)
-    for k,v in ipairs(self) do
-        print(k,v)
-    end
     if self:current() then self:current():stop() end
     table.insert(self.states, state)
     self:current():start()

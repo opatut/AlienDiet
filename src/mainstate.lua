@@ -106,7 +106,7 @@ function MainState:draw()
 
     love.graphics.setColor(255, 255, 255, 128)
     love.graphics.setFont(resources.fonts.large)
-    love.graphics.print("Time: " .. string.format("%05.1f", self.time), 20, 555)
+    love.graphics.print(_("time") .. ": " .. string.format("%05.1f", self.time), 20, 555)
 end
 
 function MainState:start()

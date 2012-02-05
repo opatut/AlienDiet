@@ -8,14 +8,16 @@ MainMenu = class("MainMenu", GameState)
 
 function MainMenu:__init()
     self.info = 0
-    self.menu = GenericMenu({"Play", "Stats", "About", "Quit"}, function(n,w)
-            if w == "Play" then
+    self.menu = GenericMenu({_("play"), _("language"), _("stats"), _("about"), _("quit")}, function(n,w)
+            if n == 1 then
                 stack:push(difficulty)
-            elseif w == "Stats" then
+            elseif n == 2 then
+                stack:push(language)
+            elseif n == 3 then
                 stack:push(stats)
-            elseif w == "About" then
+            elseif n == 4 then
                 stack:push(about)
-            elseif w == "Quit" then
+            elseif n == 5 then
                 love.event.push("q")
             end
         end)
@@ -27,9 +29,9 @@ function MainMenu:draw()
     love.graphics.draw(resources.images.background, 0, 0)
 
     local l = {}
-    table.insert(l, {"Your task", "Help the aliens keep up their diet"})
-    table.insert(l, {"Your tools","Powerful spells and common English words"})
-    table.insert(l, {"Your goal", "The cake is a lie, but we got Pie!"})
+    table.insert(l, {_("your_task"), _("task")})
+    table.insert(l, {_("your_tools"),_("tools")})
+    table.insert(l, {_("your_goal"), _("goal")})
 
     for n,x in pairs(l) do
         love.graphics.setColor(255, 255, 255, 255)
@@ -47,7 +49,8 @@ function MainMenu:draw()
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.draw(i, 200 - i:getWidth() / 2, 550 - i:getHeight() / 2)
     love.graphics.setFont(resources.fonts.tiny)
-    local s = {"Minimalist.", "Who needs a mouse here?", "Y U NO KEYBOARD?", "I like this *TYPE* of game!", "It's all under your fingertips..."}
+
+    local s = _("keyboard_hints")
     love.graphics.print(s[self.info], 200 - resources.fonts.tiny:getWidth(s[self.info]) / 2, 570)
 end
 
@@ -56,7 +59,7 @@ function MainMenu:keypressed(k, u)
 end
 
 function MainMenu:start()
-    self.info = math.random(1,5)
+    self.info = math.random(1, #_("keyboard_hints"))
 
     local s = resources.music.normal
     if love.audio.getNumSources() == 0 then

@@ -7,8 +7,8 @@ require("genericmenu")
 Stats = class("Stats", GameState)
 
 function Stats:__init()
-    self.menu = GenericMenu({"Reset", "Back"}, function(n,w)
-            if w == "Reset" then
+    self.menu = GenericMenu({_("reset"), _("back")}, function(n,w)
+            if n == 0 then
                 settings:set("pressed", 0)
                 settings:set("missed", 0)
                 settings:set("minutes", 0)
@@ -29,14 +29,14 @@ function Stats:draw()
     love.graphics.draw(resources.images.background, 0, 0)
 
     local l = {}
-    table.insert(l, {settings:get("pressed", 0), "Keys pressed"})
-    table.insert(l, {settings:get("missed", 0), "Keys missed"})
-    table.insert(l, {string.format("%.1f", settings:get("minutes", 0)), "Minutes played"})
-    table.insert(l, {settings:get("completed", 0), "Food items preserved"})
-    table.insert(l, {settings:get("played", 0), "Times played"})
-    table.insert(l, {string.format("%.1f", settings:get("maxtime", 0)), "seconds record"})
+    table.insert(l, {settings:get("pressed", 0), _("pressed")})
+    table.insert(l, {settings:get("missed", 0), _("missed")})
+    table.insert(l, {string.format("%.1f", settings:get("minutes", 0)), _("minutes")})
+    table.insert(l, {settings:get("completed", 0), _("completed")})
+    table.insert(l, {settings:get("played", 0), _("played")})
+    table.insert(l, {string.format("%.1f", settings:get("maxtime", 0)), _("maxtime")})
     table.insert(l, {"", ""})
-    table.insert(l, {settings:get("pies", 0), "Pies eaten"})
+    table.insert(l, {settings:get("pies", 0), _("pies")})
 
     local b = 10
     local z = 100

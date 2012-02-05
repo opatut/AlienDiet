@@ -7,7 +7,7 @@ require("genericmenu")
 GameOver = class("GameOver", GameState)
 
 function GameOver:__init()
-    self.menu = GenericMenu({"Try again", "Flee"}, function(n,w)
+    self.menu = GenericMenu({_("try_again"), _("flee")}, function(n,w)
             stack:pop()
             if n == 1 then
                 stack:push(difficulty)
@@ -27,19 +27,14 @@ function GameOver:draw()
 
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(resources.fonts.large)
-    local s = "Game Over"
+    local s = _("game_over")
     love.graphics.print(s, 200 - resources.fonts.large:getWidth(s) / 2, 100)
 
     love.graphics.setFont(resources.fonts.small)
-    local s = string.format("Time: %05.1f", main.time)
+    local s = string.format(_("time") .. ": %05.1f", main.time)
     love.graphics.print(s, 200 - resources.fonts.small:getWidth(s) / 2, 460)
 
-    l = {}
-    table.insert(l, "Oh noes, now mommy alien")
-    table.insert(l, "is angry with you!")
-    table.insert(l, "She doesn't want her")
-    table.insert(l, "offspring to end up")
-    table.insert(l, "obese like her...")
+    l = _("gameover_text")
 
     love.graphics.setColor(255, 255, 255)
     for n,s in pairs(l) do

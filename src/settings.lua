@@ -32,7 +32,9 @@ function Settings:save()
     savefile:open("w")
     savefile:write("s = {}\n")
     for k,v in pairs(self.data) do
-        savefile:write("s['" .. k .. "'] = " .. v .. "\n")
+        local var = v
+        if type(var) == "string" then var = "\"" .. var .. "\"" end -- escape strings
+        savefile:write("s['" .. k .. "'] = " .. var .. "\n")
     end
     savefile:write("return s\n")
     savefile:close()
@@ -41,8 +43,6 @@ end
 function Settings:load()
     ok, chunk = pcall(love.filesystem.load, self.filename)
     if not ok then return false end
-
-    print(chunk)
 
     ok, contents = pcall(chunk)
     if not ok then return false end

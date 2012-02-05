@@ -10,7 +10,7 @@ package_win32: build
 
 build:
 	zip -r game.love data/
-	cd src/ && zip ../game.love *
+	cd src/ && zip -r ../game.love *
 
 run:
 	love game.love

@@ -7,7 +7,7 @@ require("genericmenu")
 Pause = class("Pause", GameState)
 
 function Pause:__init()
-    self.menu = GenericMenu({"Continue", "Main Menu"}, function(n,w)
+    self.menu = GenericMenu({_("continue"), _("main_menu")}, function(n,w)
             if n == 1 then
                 stack:pop()
             elseif n == 2 then
@@ -25,7 +25,7 @@ function Pause:draw()
 
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(resources.fonts.large)
-    local s = "Game Paused"
+    local s = _("game_paused")
     love.graphics.print(s, 200 - resources.fonts.large:getWidth(s) / 2, 140)
 
     self.menu:draw(200, 270)

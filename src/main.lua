@@ -11,26 +11,27 @@ require("gamestack")
 require("gameover")
 require("pietime")
 require("pause")
+require("language")
 require("mainstate")
 require("mainmenu")
 require("settings")
 require("stats")
 require("intro")
 require("resources")
+require("i18n")
 
 resources = Resources("data/")
+resources.words = {}
 settings = Settings()
 settings:load()
 
+lang = Lang(settings:get("language", "en_US"))
+function _(key) return lang:_(key) end
 save_timer = 0
 
-function love.load()
-    math.randomseed(os.time())
-
-    -- load word list
-    resources.words = {}
-
-    ok, lines = pcall(love.filesystem.lines, "data/words.txt")
+function loadWords(l)
+    if not l then l = lang.currentLanguage end
+    ok, lines = pcall(love.filesystem.lines, "data/words." .. l .. ".txt")
     if not ok then
         print("Could not read words file.")
         exit()
@@ -39,6 +40,29 @@ function love.load()
     for line in lines do
         table.insert(resources.words, line)
     end
+end
+
+function reset()
+    -- load word list
+    loadWords()
+
+    -- start game
+    about = About()
+    difficulty = Difficulty()
+    pause = Pause()
+    pietime = PieTime()
+    gameover = GameOver()
+    language = Language()
+    main = MainState()
+    menu = MainMenu()
+    stats = Stats()
+    intro = Intro()
+    stack = GameStack()
+    stack:push(intro)
+end
+
+function love.load()
+    math.randomseed(os.time())
 
     -- load images
     resources:addImage("logo", "logo.png")
@@ -69,18 +93,7 @@ function love.load()
 
     resources:load()
 
-    -- start game
-    about = About()
-    difficulty = Difficulty()
-    pause = Pause()
-    pietime = PieTime()
-    gameover = GameOver()
-    main = MainState()
-    menu = MainMenu()
-    stats = Stats()
-    intro = Intro()
-    stack = GameStack()
-    stack:push(intro)
+    reset()
 end
 
 function love.update(dt)

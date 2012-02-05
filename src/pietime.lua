@@ -8,7 +8,7 @@ PieTime = class("PieTime", GameState)
 
 function PieTime:__init()
     self.time = math.random(0, 100) * 0.1
-    self.menu = GenericMenu({"Continue", "Thanks bye"}, function(n,w)
+    self.menu = GenericMenu({_("continue"), _("thanks_bye")}, function(n,w)
             stack:pop()
             if n == 2 then
                 stack:pop()
@@ -37,16 +37,10 @@ function PieTime:draw()
     love.graphics.draw(i, 200 - math.floor(i:getWidth() / 2), 230 - math.floor(i:getHeight() / 2))
 
     love.graphics.setFont(resources.fonts.large)
-    local s = "Pie time!"
+    local s = _("pie_time")
     love.graphics.print(s, 200 - resources.fonts.large:getWidth(s) / 2, 100)
 
-    l = {}
-    table.insert(l, "You worked so hard,")
-    table.insert(l, "you really deserve")
-    table.insert(l, "this pie! Enjoy it,")
-    table.insert(l, "and give these little")
-    table.insert(l, "fellas some crumbs!")
-
+    local l = _("pietime_text")
     love.graphics.setFont(resources.fonts.small)
     for n,s in pairs(l) do
         love.graphics.print(s, 200 - resources.fonts.small:getWidth(s) / 2, 320 + 20 * (n-1) )

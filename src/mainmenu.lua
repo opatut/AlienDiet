@@ -54,15 +54,15 @@ function MainMenu:draw()
     love.graphics.print(s[self.info], 200 - resources.fonts.tiny:getWidth(s[self.info]) / 2, 570)
 end
 
-function MainMenu:keypressed(k, u)
-    self.menu:keypressed(k, u)
+function MainMenu:keypressed(k, s, r)
+    self.menu:keypressed(k, s, r)
 end
 
 function MainMenu:start()
     self.info = math.random(1, #_("keyboard_hints"))
 
     local s = resources.music.normal
-    if love.audio.getNumSources() == 0 then
+    if love.audio.getSourceCount() == 0 then
         s:setLooping(true)
         s:play()
     end

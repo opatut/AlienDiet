@@ -44,6 +44,6 @@ function GameOver:draw()
     self.menu:draw(200, 510)
 end
 
-function GameOver:keypressed(k, u)
-    self.menu:keypressed(k, u)
+function GameOver:keypressed(k, s, r)
+    self.menu:keypressed(k, s, r)
 end

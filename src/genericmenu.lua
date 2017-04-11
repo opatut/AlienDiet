@@ -28,8 +28,8 @@ function GenericMenu:draw(x, y)
     end
 end
 
-function GenericMenu:keypressed(k, u)
+function GenericMenu:keypressed(k, s, r)
     for key,w in pairs(self.words) do
-        w:keypressed(k, u)
+        w:keypressed(k, s, r)
     end
 end

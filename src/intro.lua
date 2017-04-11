@@ -38,6 +38,6 @@ function Intro:start()
     self.time = -1
 end
 
-function Intro:keypressed(k, u)
+function Intro:keypressed(k, s, r)
     stack:push(menu)
 end

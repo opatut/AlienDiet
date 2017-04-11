@@ -25,12 +25,13 @@ function Word:getWidth()
     return self:getWidthLeft() + self:getWidthRight()
 end
 
-function Word:keypressed(k, u)
+function Word:keypressed(k, s, r)
     if not self.wordRest or self.wordRest == "" then
         return
     end
 
-    local letter = string.char(u)
+    local letter = k
+
     if letter:lower() == self.wordRest:sub(1,1):lower() then
         self.wordBegin = self.wordBegin .. self.wordRest:sub(1,1)
         self.wordRest = self.wordRest:sub(2)

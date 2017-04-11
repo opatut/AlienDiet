@@ -49,6 +49,6 @@ function PieTime:draw()
     self.menu:draw(200, 510)
 end
 
-function PieTime:keypressed(k, u)
-    self.menu:keypressed(k, u)
+function PieTime:keypressed(k, s, r)
+    self.menu:keypressed(k, s, r)
 end

@@ -1,4 +1,4 @@
-default: build run
+default: run
 
 package_win32: build
 	mkdir -p package/tmp/
@@ -9,9 +9,8 @@ package_win32: build
 	cd package/tmp/ && zip ../win32/game.zip *.dll game.exe
 
 build:
-	zip -r game.love data/
-	cd src/ && zip -r ../game.love *
+	zip -r game.love src/
 
 run:
-	love game.love
+	love src/
 

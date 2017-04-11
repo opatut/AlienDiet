@@ -31,6 +31,6 @@ function Pause:draw()
     self.menu:draw(200, 270)
 end
 
-function Pause:keypressed(k, u)
-    self.menu:keypressed(k, u)
+function Pause:keypressed(k, s, r)
+    self.menu:keypressed(k, s, r)
 end

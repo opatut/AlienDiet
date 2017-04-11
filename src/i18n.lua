@@ -28,7 +28,7 @@ end
 
 function Lang:scan()
     local folder = "i18n"
-    local files = love.filesystem.enumerate(folder)
+    local files = love.filesystem.getDirectoryItems(folder)
     for i,v in ipairs(files) do
         local file = folder.."/"..v
         local lang = string.sub(v, 1, -5)

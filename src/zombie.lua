@@ -7,7 +7,6 @@ function Zombie:__init(x, shift)
     self.x = x
     self.shift = shift
     self.dx = 0
-    self.flipped = false
     self.img = resources.images.alien
 
     w = self.img:getWidth()
@@ -85,25 +84,22 @@ function Zombie:playAnimation()
 end
 
 function Zombie:draw()
-    y = 528 - 2
-    x = self.x - 12
+    local y = 528 - 2
+    local x = self.x - 12
+    local sx = 1
+    if self.dx > 0 then sx = -1 end
+    local sy = 1
+
     love.graphics.setColor(255, 255, 255, 255)
 
-    if not self.flipped == (self.dx > 0) then
-        for k,f in pairs(self.frames) do
-            f:flip(true, false)
-        end
-        self.flipped = self.dx > 0
-    end
-
-    q = self.frames[ 1 + math.floor(self.time * 3) ]
-    love.graphics.drawq(self.img, q, x, y)
+    local q = self.frames[ 1 + math.floor(self.time * 3) ]
+    love.graphics.draw(self.img, q, x, y, 0, sx, sy)
 
     ys = 550 - 4
     if not dx == 0 then ys = ys - 2 end
     t = self.totalTime
     if self.dx < 0 then t = -t end
     if self.dx == 0 then t = 0 end
-    love.graphics.drawq(self.img, self.shoe, self.x - 11 + math.cos(t), ys + math.sin(t))
-    love.graphics.drawq(self.img, self.shoe, self.x + 2 - math.cos(t), ys - math.sin(t))
+    love.graphics.draw(self.img, self.shoe, self.x - 11 + math.cos(t), ys + math.sin(t), 0, sx, sy)
+    love.graphics.draw(self.img, self.shoe, self.x + 2 - math.cos(t), ys - math.sin(t), 0, sx, sy)
 end

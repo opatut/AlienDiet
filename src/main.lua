@@ -31,15 +31,13 @@ save_timer = 0
 
 function loadWords(l)
     if not l then l = lang.currentLanguage end
-    ok, lines = pcall(love.filesystem.lines, "data/words." .. l .. ".txt")
-    if not ok then
-        print("Could not read words file.")
-        exit()
-    end
 
-    for line in lines do
-        table.insert(resources.words, line)
+    local words = {}
+    local iter = love.filesystem.lines("data/words." .. l .. ".txt")
+    for line in iter do
+        table.insert(words, line)
     end
+    resources.words = words
 end
 
 function reset()
@@ -112,8 +110,8 @@ function love.draw()
     love.graphics.print("FPS: " .. love.timer.getFPS(), 5, 5)
 end
 
-function love.keypressed(k, u)
-    stack:keypressed(k, u)
+function love.keypressed(k, s, r)
+    stack:keypressed(k, s, r)
 end
 
 function love.quit()

@@ -52,6 +52,6 @@ function Stats:draw()
     self.menu:draw(200, 510)
 end
 
-function Stats:keypressed(k, u)
-    self.menu:keypressed(k, u)
+function Stats:keypressed(k, s, r)
+    self.menu:keypressed(k, s, r)
 end

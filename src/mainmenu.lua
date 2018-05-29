@@ -18,14 +18,14 @@ function MainMenu:__init()
             elseif n == 4 then
                 stack:push(about)
             elseif n == 5 then
-                love.event.push("q")
+                love.event.push("quit")
             end
         end)
 end
 
 function MainMenu:draw()
     -- background
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.draw(resources.images.background, 0, 0)
 
     local l = {}
@@ -34,11 +34,11 @@ function MainMenu:draw()
     table.insert(l, {_("your_goal"), _("goal")})
 
     for n,x in pairs(l) do
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(1, 1, 1, 1)
         love.graphics.setFont(resources.fonts.small)
         love.graphics.print(x[1], 200 - resources.fonts.small:getWidth(x[1]) / 2, 30 + 50 * (n-1))
 
-        love.graphics.setColor(255, 255, 255, 128)
+        love.graphics.setColor(1, 1, 1, 0.5)
         love.graphics.setFont(resources.fonts.tiny)
         love.graphics.print(x[2], 200 - resources.fonts.tiny:getWidth(x[2]) / 2, 50 + 50 * (n-1))
     end
@@ -46,7 +46,7 @@ function MainMenu:draw()
     self.menu:draw(200, 250)
 
     local i = resources.images.keyboard
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.draw(i, 200 - i:getWidth() / 2, 550 - i:getHeight() / 2)
     love.graphics.setFont(resources.fonts.tiny)
 

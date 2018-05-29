@@ -28,11 +28,11 @@ end
 function PieTime:draw()
     -- background
     t = self.time
-    local r,g,b = hsl2rgb( (t - math.floor(t)) * 255, 100, 100)
+    local r,g,b = hsl2rgb( (t - math.floor(t)), 0.5, 0.5)
     love.graphics.setColor(r,g,b)
     love.graphics.draw(resources.images.background, 0, 0)
 
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
     local i = resources.images.pie
     love.graphics.draw(i, 200 - math.floor(i:getWidth() / 2), 230 - math.floor(i:getHeight() / 2))
 

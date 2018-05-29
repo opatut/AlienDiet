@@ -39,7 +39,7 @@ function Resources:load(threaded)
     end
 
     for name, src in pairs(self.musicQueue) do
-        self.music[name] = love.audio.newSource(self.prefix .. src)
+        self.music[name] = love.audio.newSource(self.prefix .. src, 'stream')
         self.musicQueue[name] = nil
     end
 end

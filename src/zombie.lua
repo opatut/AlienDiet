@@ -90,7 +90,7 @@ function Zombie:draw()
     if self.dx > 0 then sx = -1 end
     local sy = 1
 
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
 
     local q = self.frames[ 1 + math.floor(self.time * 3) ]
     love.graphics.draw(self.img, q, x, y, 0, sx, sy)

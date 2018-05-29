@@ -79,7 +79,7 @@ end
 
 function MainState:draw()
     -- background
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.draw(resources.images.background, 0, 0)
 
     for key,zombie in ipairs(self.zombies) do
@@ -97,14 +97,14 @@ function MainState:draw()
     -- draw lives
     for i=1,3 do
         if i > self.lives then
-            love.graphics.setColor(50, 50, 50)
+            love.graphics.setColor(0.2, 0.2, 0.2)
         else
-            love.graphics.setColor(255, 255, 255)
+            love.graphics.setColor(1, 1, 1)
         end
         love.graphics.draw(resources.images.heart, 390 - i * 32, 560)
     end
 
-    love.graphics.setColor(255, 255, 255, 128)
+    love.graphics.setColor(1, 1, 1, 0.5)
     love.graphics.setFont(resources.fonts.large)
     love.graphics.print(_("time") .. ": " .. string.format("%05.1f", self.time), 20, 555)
 end
@@ -114,7 +114,7 @@ function MainState:start()
 
     local m = {"normal", "hacker", "insane"}
     local s = resources.music[m[self.difficulty]]
-    if s:isStopped() then
+    if s:isPlaying() then
         love.audio.stop()
     end
     s:setLooping(true)

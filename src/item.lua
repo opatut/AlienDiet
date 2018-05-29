@@ -22,10 +22,10 @@ function Item:draw()
     local font = resources.fonts["small"]
     local h = self.img:getHeight()
     local w = self.img:getWidth()
-    local alpha = self.fadeTime * 255
+    local alpha = self.fadeTime
 
     if self.y < 530 then
-        love.graphics.setColor(255, 255, 255, alpha)
+        love.graphics.setColor(1, 1, 1, alpha)
         love.graphics.draw(self.img, self.x - w / 2, self.y - h / 2)
     end
 

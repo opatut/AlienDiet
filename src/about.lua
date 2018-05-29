@@ -11,14 +11,14 @@ end
 
 function About:draw()
     -- background
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.draw(resources.images.background, 0, 0)
 
     local i = resources.images.logo
-    love.graphics.setColor(255, 255, 255, 128)
+    love.graphics.setColor(1, 1, 1, 0.5)
     love.graphics.draw(i, 200 - i:getWidth() / 2, 200 - i:getWidth() / 2)
 
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.setFont(resources.fonts.small)
     l = {}
     table.insert(l, _("created_for"))
@@ -35,11 +35,8 @@ function About:draw()
 
     local y1 = 400 - i:getWidth() + i:getHeight()
     for n,v in pairs(l) do
-        if n == 1 or n == 4 or n == 7 or n == 10 then
-            love.graphics.setColor(255, 255, 255, 255)
-        else
-            love.graphics.setColor(255, 255, 255, 128)
-        end
+        local alpha = (n == 1 or n == 4 or n == 7 or n == 10) and 1 or 0.5
+        love.graphics.setColor(1, 1, 1, alpha)
         love.graphics.printf(v, 20, y1 + (n-1)*20, 360, "center")
     end
 

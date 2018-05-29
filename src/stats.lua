@@ -25,7 +25,7 @@ end
 
 function Stats:draw()
     -- background
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.draw(resources.images.background, 0, 0)
 
     local l = {}
@@ -42,10 +42,10 @@ function Stats:draw()
     local z = 100
     love.graphics.setFont(resources.fonts.small)
     for n,x in pairs(l) do
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(1, 1, 1, 1)
         love.graphics.print(x[1], z - resources.fonts.small:getWidth(x[1]) - b / 2, 130 + 30 * (n-1))
 
-        love.graphics.setColor(255, 255, 255, 128)
+        love.graphics.setColor(1, 1, 1, 0.5)
         love.graphics.print(x[2], z + b / 2, 130 + 30 * (n-1))
     end
 

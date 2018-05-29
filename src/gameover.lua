@@ -17,15 +17,15 @@ end
 
 function GameOver:draw()
     -- background
-    love.graphics.setColor(255, 0, 0, 255)
+    love.graphics.setColor(1, 0, 0, 1)
     love.graphics.draw(resources.images.background, 0, 0)
 
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
     local i = resources.images.game_over
     love.graphics.draw(i, 200 - math.floor(i:getWidth() / 2), 250 - math.floor(i:getHeight() / 2))
 
 
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(resources.fonts.large)
     local s = _("game_over")
     love.graphics.print(s, 200 - resources.fonts.large:getWidth(s) / 2, 100)
@@ -36,7 +36,7 @@ function GameOver:draw()
 
     l = _("gameover_text")
 
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
     for n,s in pairs(l) do
         love.graphics.print(s, 200 - resources.fonts.small:getWidth(s) / 2, 320 + 20 * (n-1) )
     end

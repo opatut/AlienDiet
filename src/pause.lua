@@ -20,10 +20,10 @@ end
 function Pause:draw()
     main:draw()
 
-    love.graphics.setColor(0, 0, 0, 200)
+    love.graphics.setColor(0, 0, 0, 0.8)
     love.graphics.rectangle("fill", 0, 0, 400, 600)
 
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(resources.fonts.large)
     local s = _("game_paused")
     love.graphics.print(s, 200 - resources.fonts.large:getWidth(s) / 2, 140)

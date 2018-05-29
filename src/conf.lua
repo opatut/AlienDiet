@@ -2,7 +2,7 @@ function love.conf(t)
     t.title = "Alien on a diet"
     t.author = "opatut"
     t.identity = "aliendiet"
-    t.version = "0.10.2" -- Löve version
+    t.version = "11.1" -- Löve version
     t.console = false
     t.release = false
     t.window.width = 400
